@@ -8,7 +8,7 @@ function ListManga() {
   useEffect(() => {
     const fetchMangaData = async () => {
       try {
-        const response = await axios.get("http://localhost:8081/dashboard"); // Update the URL to your API endpoint
+        const response = await axios.get("http://localhost:8081/manga"); // Update the URL to your API endpoint
         setMangaData(response.data.data); // Adjust based on your API response structure
       } catch (error) {
         console.error("Error fetching manga data:", error);

@@ -42,7 +42,7 @@ router.post('/login', (req, res) => {
         }
     });
 });
-router.get('/dashboard', (req, res) => {
+router.get('/manga', (req, res) => {
     console.log('Dashboard route hit'); // Log to confirm the route is reached
     const sql = "SELECT * FROM manga"; // Adjust the SQL query as needed
     console.log('SQL Query:', sql);

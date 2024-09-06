@@ -1,17 +1,17 @@
-// src/components/HomeDashboard.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import ListManga from './Components/ListManga'; // Ensure this component fetches data from the new API
+import ListManga from './Components/ListManga';
+import "./Components/CSS/Home.css";
 
-function HomeDashboard() {
+function Home() {
     const [auth, setAuth] = useState(false);
     const [message, setMessage] = useState('');
     const [name, setName] = useState('');
     axios.defaults.withCredentials = true;
 
     useEffect(() => {
-        axios.get('http://localhost:8081') // Adjust this endpoint as needed
+        axios.get('http://localhost:8081')
             .then(res => {
                 if (res.data.Status === "Success") {
                     setAuth(true);
@@ -33,38 +33,40 @@ function HomeDashboard() {
     };
 
     return (
-        <div className='container mt-4'>
-            <div className="dashboard-header">
-                <nav className="dashboard-nav">
-                    {auth ? (
-                        <>
-                            <Link to="/createReview" className="dashboard-button">Write Reviews</Link>
-                            <Link to="/allManga" className="dashboard-button">All Manga</Link>
-                            <Link to="/search" className="dashboard-button">Search</Link>
-                            <button className='btn btn-danger' onClick={handleLogout}>Logout</button>
-                        </>
-                    ) : (
-                        <>
-                            <Link to="/allManga" className="dashboard-button">All Manga</Link>
-                            <Link to="/search" className="dashboard-button">Search</Link>
-                            <h3>{message}</h3>
-                            <h3>Login Now</h3>
-                            <Link to="/login" className='btn btn-primary'>Login</Link>
-                        </>
-                    )}
-                </nav>
-            </div>
+        <div className="page-container">
+            <div className='container mt-4'>
+                <div className="dashboard-header">
+                    <nav className="dashboard-nav">
+                        {auth ? (
+                            <>
+                                <Link to="/createReview" className="dashboard-button">Write Reviews</Link>
+                                <Link to="/allManga" className="dashboard-button">All Manga</Link>
+                                <Link to="/search" className="dashboard-button">Search</Link>
+                                <button className='btn btn-danger' onClick={handleLogout}>Logout</button>
+                            </>
+                        ) : (
+                            <>
+                                <Link to="/allManga" className="dashboard-button">All Manga</Link>
+                                <Link to="/search" className="dashboard-button">Search</Link>
+                                <h3>{message}</h3>
+                                <h3>Login Now</h3>
+                                <Link to="/login" className='btn btn-primary'>Login</Link>
+                            </>
+                        )}
+                    </nav>
+                </div>
 
-            {auth && <h3>Welcome Admin: {name}</h3>} {/* Display welcome message only if logged in */}
+                {auth && <h3>Welcome Admin: {name}</h3>} {/* Display welcome message only if logged in */}
 
-            <div className="popular-manga-container">
-                <h2>Most Popular Manga</h2>
-                <main className="dashboard-content">
-                    <ListManga /> {/* This component will fetch and display manga data */}
-                </main>
+                <div className="popular-manga-container">
+                    <h2>Most Popular Manga</h2>
+                    <main className="dashboard-content">
+                        <ListManga /> {/* This component will fetch and display manga data */}
+                    </main>
+                </div>
             </div>
         </div>
     );
 }
 
-export default HomeDashboard;
+export default Home;
