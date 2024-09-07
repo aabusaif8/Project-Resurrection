@@ -59,9 +59,10 @@ function Home() {
                             <>
                                 <Link to="/allManga" className="dashboard-button">All Manga</Link>
                                 <Link to="/search" className="dashboard-button">Search</Link>
+                                <Link to="/login" className='dashboard-button'>Login</Link>
                                 <h3>{message}</h3>
                                 <h3>Login Now</h3>
-                                <Link to="/login" className='btn btn-primary'>Login</Link>
+                                
                             </>
                         )}
                     </nav>

@@ -1,51 +1,50 @@
 .manga-list-container {
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    gap: 20px;
-    align-items: center; /* Center the cards horizontally */
-    padding: 20px;
-  }
-  
-  .manga-card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 300px;
-    text-align: left;
-    transition: transform 0.3s ease;
-  }
-  
-  .manga-card:hover {
-    transform: translateY(-5px); /* Hover effect */
-  }
-  
-  .manga-title {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .manga-author, .manga-rating {
-    font-size: 1rem;
-    margin-bottom: 5px;
-  }
-  
-  .manga-description {
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-  }
-  
-  .read-more-button {
-    background-color: #007BFF;
-    color: white;
-    padding: 10px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-  }
-  
-  .read-more-button:hover {
-    background-color: #0056b3;
-  }
-  
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 20px;
+  align-items: center; /* Center the cards horizontally */
+  padding: 20px;
+}
+
+.manga-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 300px;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.manga-card:hover {
+  transform: translateY(-5px); /* Hover effect */
+}
+
+.manga-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.manga-author, .manga-rating {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.manga-description {
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.read-more-button {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.read-more-button:hover {
+  background-color: #0056b3;
+}
