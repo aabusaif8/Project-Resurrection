@@ -26,10 +26,12 @@ router.post('/login', (req, res) => {
     db.query(sql, [req.body.email], (err, data) => {
         if (err) return res.json({ Error: "Error logging in" });
         if (data.length > 0) {
+            console.log(data)
             bcrypt.compare(req.body.password.toString(), data[0].password, (err, response) => {
                 if (err) return res.json({ Error: "Password comparing error" });
                 if (response) {
                     const name = data[0].name;
+                    console.log(data[0])
                     const token = jwt.sign({ name }, "secret_key", { expiresIn: '1d' });
                     res.cookie('token', token);
                     return res.json({ Status: "Success" });
@@ -76,6 +78,21 @@ const verifyUser = (req, res, next) => {
         });
     }
 };
+router.get('/role', verifyUser, (req, res) => {
+    const sql = 'SELECT role FROM login WHERE name = ?'; // Adjust the query as needed
+    db.query(sql, [req.name], (err, results) => {
+        if (err) {
+            return res.json({ Error: "Error fetching user role" });
+        }
+        if (results.length > 0) {
+            console.log(results)
+            const role = results[0].role; // Assuming role is in the first row
+            return res.json({ Status: "Success", role });
+        } else {
+            return res.json({ Error: "Role not found" });
+        }
+    });
+});
 
 // Protected Route
 router.get('/', verifyUser, (req, res) => {

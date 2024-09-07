@@ -1,3 +1,5 @@
+// src/Home.jsx
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -8,6 +10,7 @@ function Home() {
     const [auth, setAuth] = useState(false);
     const [message, setMessage] = useState('');
     const [name, setName] = useState('');
+    const [role, setRole] = useState('');
     axios.defaults.withCredentials = true;
 
     useEffect(() => {
@@ -16,9 +19,17 @@ function Home() {
                 if (res.data.Status === "Success") {
                     setAuth(true);
                     setName(res.data.name);
+                    // Fetch the role after authentication
+                    return axios.get('http://localhost:8081/role');
                 } else {
                     setAuth(false);
                     setMessage(res.data.Error);
+                }
+            })
+            .then(res => {
+                if (res && res.data.Status === "Success") {
+                    console
+                    setRole(res.data.role); // Set the role from the response
                 }
             })
             .catch(err => console.log(err));
@@ -56,7 +67,7 @@ function Home() {
                     </nav>
                 </div>
 
-                {auth && <h3>Welcome Admin: {name}</h3>} {/* Display welcome message only if logged in */}
+                {auth && <h3>Welcome {role}: {name}</h3>} {/* Display welcome message with role and name */}
 
                 <div className="popular-manga-container">
                     <h2>Most Popular Manga</h2>
