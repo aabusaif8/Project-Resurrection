@@ -78,8 +78,8 @@ const verifyUser = (req, res, next) => {
         });
     }
 };
-router.get('/role', verifyUser, (req, res) => {
-    const sql = 'SELECT role FROM login WHERE name = ?'; // Adjust the query as needed
+router.get('/role', (req, res) => {
+    const sql = 'SELECT role FROM login WHERE id = ?'; // Adjust the query as needed
     db.query(sql, [req.name], (err, results) => {
         if (err) {
             return res.json({ Error: "Error fetching user role" });

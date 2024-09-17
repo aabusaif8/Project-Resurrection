@@ -9,34 +9,6 @@ function MangaInfo() {
     const [manga, setManga] = useState(null); // State to hold manga data
     const [loading, setLoading] = useState(true); // Loading state
     const [userId, setUserId] = useState(null); // State to hold the logged-in user's ID
-    const [userRole, setUserRole] = useState(null); // State to hold the logged-in user's role
-
-    useEffect(() => {
-        // Fetch user data to get user ID
-        const fetchUserData = async () => {
-            try {
-                const response = await axios.get('/api/user'); // Adjust the endpoint to fetch user data
-                setUserId(response.data.id); // Set user ID
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-                setUserId(null); // Set user to null if not logged in
-            }
-        };
-
-        // Fetch user role
-        const fetchUserRole = async () => {
-            try {
-                const response = await axios.get('/api/role'); // Fetch user role from existing route
-                setUserRole(response.data.role); // Set user role
-            } catch (error) {
-                console.error("Error fetching user role:", error);
-                setUserRole(null); // Set role to null if not logged in
-            }
-        };
-
-        fetchUserData();
-        fetchUserRole();
-    }, []); // Fetch user data and role once on component mount
 
     useEffect(() => {
         const fetchMangaInfo = async () => {
@@ -44,6 +16,14 @@ function MangaInfo() {
                 const response = await axios.get(`http://localhost:8081/manga/${id}`); // Fetch manga details
                 console.log(response.data);
                 setManga(response.data.data); // Set manga data
+
+                // Extract user ID from the comments (assuming the first comment is from the logged-in user)
+                const userComment = response.data.data.comments.find(comment => comment.user_id); // Adjust this logic as needed
+                console.log
+                if (userComment) {
+                    setUserId(userComment.user_id); // Set the user ID from the comment
+                }
+
                 setLoading(false); // Set loading to false
             } catch (error) {
                 console.error("Error fetching manga info:", error);
@@ -94,7 +74,7 @@ function MangaInfo() {
                     manga.comments.map((comment) => (
                         <div key={comment.comment_id} className="comment-card">
                             <p><strong>User {comment.user_id}:</strong> {comment.comment}</p>
-                            {(userId && (userId === comment.user_id || userRole === 'Admin')) && ( // Check if user is logged in and has permission
+                            {(userId && (userId === comment.user_id || userId.role === 'Admin')) && ( // Check if user is logged in and has permission
                                 <button className="delete-button" onClick={() => handleDeleteComment(comment.comment_id)}>
                                     Delete
                                 </button>
