@@ -1,9 +1,8 @@
-// src/Home.jsx
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ListManga from './Components/ListManga';
+import RevolvingCardBelt from './Components/RevolvingCards'; // Import the new component
 import "./Components/CSS/Home.css";
 
 function Home() {
@@ -19,7 +18,6 @@ function Home() {
                 if (res.data.Status === "Success") {
                     setAuth(true);
                     setName(res.data.name);
-                    // Fetch the role after authentication
                     return axios.get('http://localhost:8081/role');
                 } else {
                     setAuth(false);
@@ -28,8 +26,7 @@ function Home() {
             })
             .then(res => {
                 if (res && res.data.Status === "Success") {
-                    console
-                    setRole(res.data.role); // Set the role from the response
+                    setRole(res.data.role);
                 }
             })
             .catch(err => console.log(err));
@@ -60,15 +57,15 @@ function Home() {
                                 <Link to="/allManga" className="dashboard-button">All Manga</Link>
                                 <Link to="/search" className="dashboard-button">Search</Link>
                                 <Link to="/login" className='dashboard-button'>Login</Link>
-                                <h3>{message}</h3>
-                                <h3>Login Now</h3>
-                                
                             </>
                         )}
                     </nav>
                 </div>
 
                 {auth && <h3>Welcome {role}: {name}</h3>} {/* Display welcome message with role and name */}
+
+                {/* Revolving Card Belt */}
+                <RevolvingCardBelt />
 
                 <div className="popular-manga-container">
                     <h2>Most Popular Manga</h2>

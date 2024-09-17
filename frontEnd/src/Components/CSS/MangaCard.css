@@ -1,50 +1,31 @@
-.manga-list-container {
-  display: flex;
-  flex-direction: column; /* Stack items vertically */
-  gap: 20px;
-  align-items: center; /* Center the cards horizontally */
-  padding: 20px;
-}
-
-.manga-card {
+.manga-card-list { /* Updated class name */
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  max-width: 300px;
-  text-align: left;
+  max-width: 600px; /* Increase max-width to accommodate image and text */
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
   transition: transform 0.3s ease;
 }
 
-.manga-card:hover {
+.manga-card-list:hover { /* Updated class name */
   transform: translateY(-5px); /* Hover effect */
 }
 
-.manga-title {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #333;
+.manga-content {
+  display: flex; /* Use flexbox for content layout */
+  gap: 20px; /* Space between image and text */
 }
 
-.manga-author, .manga-rating {
-  font-size: 1rem;
-  margin-bottom: 5px;
+.manga-image {
+  width: 100px; /* Set a fixed width for the image */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 5px; /* Optional: round the corners of the image */
 }
 
-.manga-description {
-  font-size: 0.9rem;
-  margin-bottom: 15px;
+.manga-details {
+  flex: 1; /* Allow text to take remaining space */
 }
 
-.read-more-button {
-  background-color: #007BFF;
-  color: white;
-  padding: 10px;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-}
-
-.read-more-button:hover {
-  background-color: #0056b3;
-}
+/* Other styles remain unchanged... */

@@ -1,0 +1,95 @@
+/* MangaInfo.css */
+
+.manga-info-container {
+    max-width: 800px; /* Set a maximum width for the container */
+    margin: 20px auto; /* Center the container with margin auto */
+    padding: 20px; /* Add padding inside the container */
+    border: 1px solid #ccc; /* Add a light border */
+    border-radius: 8px; /* Round the corners */
+    background-color: #f9f9f9; /* Light background color */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    text-align: center; /* Center text inside the container */
+}
+
+.manga-title {
+    font-size: 2em; /* Larger font size for the title */
+    margin-bottom: 10px; /* Space below the title */
+    color: #333; /* Dark color for the title */
+}
+
+.manga-author,
+.manga-rating,
+.manga-description {
+    font-size: 1.2em; /* Slightly larger font size for other details */
+    margin: 5px 0; /* Space above and below each detail */
+    color: #555; /* Medium gray color for text */
+}
+
+.comments-container {
+    margin-top: 20px; /* Space above the comments section */
+    padding: 10px; /* Padding inside the comments container */
+    border-top: 1px solid #ccc; /* Top border to separate comments */
+}
+
+.comment-card {
+    background-color: #fff; /* White background for each comment */
+    border: 1px solid #ddd; /* Light border around comments */
+    border-radius: 5px; /* Round corners for comments */
+    padding: 10px; /* Padding inside each comment */
+    margin-bottom: 10px; /* Space between comments */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for comments */
+}
+
+.comment-card p {
+    margin: 0; /* Remove default margin for paragraphs */
+}
+
+.comment-card strong {
+    color: #007bff; /* Blue color for usernames */
+}
+
+.manga-image {
+    width: 70%; /* Make the image responsive to the container width */
+    max-width: 600px; /* Set a larger maximum width for the image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Round the corners of the image */
+    margin-bottom: 20px; /* Space below the image */
+    display: block; /* Ensure the image is displayed as a block element */
+    margin-left: auto; /* Center the image horizontally */
+    margin-right: auto; /* Center the image horizontally */
+}
+
+/* MangaInfo.css */
+
+.back-button {
+    background-color: #007bff; /* Primary button color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Round corners */
+    padding: 10px 15px; /* Padding for the button */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-bottom: 20px; /* Space below the button */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.back-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+
+.delete-button {
+    background-color: #dc3545; /* Red color for delete button */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Round corners */
+    padding: 5px 10px; /* Padding for the button */
+    font-size: 14px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-left: 10px; /* Space between comment text and button */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.delete-button:hover {
+    background-color: #c82333; /* Darker shade on hover */
+}

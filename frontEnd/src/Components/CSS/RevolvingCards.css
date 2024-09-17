@@ -1,0 +1,69 @@
+/* src/components/RevolvingCardBelt.css */
+.revolving-card-belt-container {
+    width: 75%; /* Set a width for the card belt */
+    margin: 20px auto; /* Center the card belt */
+}
+
+.manga-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center; /* Center text in the card */
+    min-width: 200px; /* Minimum width for cards */
+}
+
+.carousel-card {
+    background-color: #f8f8f8; /* Different background for carousel cards */
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center; /* Center text in the carousel card */
+    max-width: 200px; /* Minimum width for carousel cards */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effect */
+}
+
+.carousel-card:hover {
+    background-color: #e0e0e0; /* Change background on hover */
+    transform: scale(1.05); /* Optional: Slightly scale up on hover */
+}
+
+/* src/components/RevolvingCardBelt.css */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #007BFF; /* Button color */
+    z-index: 10; /* Ensure buttons are above other elements */
+    width: 40px; /* Set a width for the buttons */
+    height: 40px; /* Set a height for the buttons */
+    background-color: rgba(255, 255, 255, 0.8); /* Temporary background color */
+    border-radius: 50%; /* Make them circular */
+    display: flex; /* Center the icon */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    color: #0056b3; /* Darker blue on hover */
+}
+
+/* Optional: Style for pagination bullets */
+.swiper-pagination-bullet {
+    background: #007BFF; /* Bullet color */
+}
+
+.swiper-pagination-bullet-active {
+    background: #0056b3; /* Active bullet color */
+}
+
+.manga-list-container {
+  display: flex; /* Use flexbox for layout */
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  justify-content: space-between; /* Space between items */
+  gap: 20px; /* Space between cards */
+  padding: 20px; /* Optional: padding around the container */
+}
+
+.manga-card {
+  flex: 0 1 calc(50% - 20px); /* Each card takes up 50% of the width minus the gap */
+  box-sizing: border-box; /* Include padding in width calculations */
+}

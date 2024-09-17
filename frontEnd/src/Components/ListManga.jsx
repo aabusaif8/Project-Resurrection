@@ -8,8 +8,8 @@ function ListManga() {
   useEffect(() => {
     const fetchMangaData = async () => {
       try {
-        const response = await axios.get("http://localhost:8081/manga"); // Update the URL to your API endpoint
-        setMangaData(response.data.data); // Adjust based on your API response structure
+        const response = await axios.get("http://localhost:8081/manga"); 
+        setMangaData(response.data.data); // Assuming response.data.data is an array of manga objects
       } catch (error) {
         console.error("Error fetching manga data:", error);
       }
@@ -17,11 +17,17 @@ function ListManga() {
 
     fetchMangaData();
   }, []);
+
   return (
-    <div className="manga-list-container">
-      {mangaData.map((manga) => (
-        <FormatManga key={manga.manga_id} manga={manga} />
-      ))}
+    <div>
+      <div className="manga-list-container">
+        {mangaData.map((manga) => (
+          <FormatManga 
+            key={manga.manga_id} 
+            manga={manga} // Pass the entire manga object
+          />
+        ))}
+      </div>
     </div>
   );
 }
