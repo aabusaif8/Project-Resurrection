@@ -61,6 +61,36 @@
 
 /* MangaInfo.css */
 
+form {
+    margin-top: 20px; /* Space above the form */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack elements vertically */
+}
+
+textarea {
+    resize: none; /* Disable resizing */
+    height: 100px; /* Fixed height */
+    padding: 10px; /* Padding inside the textarea */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 10px; /* Space below the textarea */
+    font-size: 1em; /* Font size */
+}
+
+button {
+    background-color: #007bff; /* Primary button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Padding inside the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1em; /* Font size */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
 .back-button {
     background-color: #007bff; /* Primary button color */
     color: white; /* Text color */

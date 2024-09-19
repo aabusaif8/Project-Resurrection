@@ -18,16 +18,17 @@ function ListManga() {
     fetchMangaData();
   }, []);
 
+  // Get the top 10 manga
+  const topManga = mangaData.slice(0, 10);
+
   return (
-    <div>
-      <div className="manga-list-container">
-        {mangaData.map((manga) => (
-          <FormatManga 
-            key={manga.manga_id} 
-            manga={manga} // Pass the entire manga object
-          />
-        ))}
-      </div>
+    <div className="manga-list-container">
+      {topManga.map((manga) => (
+        <FormatManga 
+          key={manga.manga_id} 
+          manga={manga} // Pass the entire manga object
+        />
+      ))}
     </div>
   );
 }

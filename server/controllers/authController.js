@@ -26,15 +26,17 @@ router.post('/login', (req, res) => {
     db.query(sql, [req.body.email], (err, data) => {
         if (err) return res.json({ Error: "Error logging in" });
         if (data.length > 0) {
-            console.log(data)
             bcrypt.compare(req.body.password.toString(), data[0].password, (err, response) => {
                 if (err) return res.json({ Error: "Password comparing error" });
                 if (response) {
                     const name = data[0].name;
-                    console.log(data[0])
-                    const token = jwt.sign({ name }, "secret_key", { expiresIn: '1d' });
+                    const userId = data[0].id; // Get the user ID
+                    const role = data[0].role; // Get the user role
+                    console.log(role);
+                    const token = jwt.sign({ name, id: userId }, "secret_key", { expiresIn: '1d' }); // Include user ID in the token
                     res.cookie('token', token);
-                    return res.json({ Status: "Success" });
+                    // Return user data along with status
+                    return res.json({ Status: "Success", userId, role, name }); // Send userId, role, and name back to the frontend
                 } else {
                     return res.json({ Error: "Wrong password" });
                 }
@@ -44,10 +46,30 @@ router.post('/login', (req, res) => {
         }
     });
 });
+
+router.get('/login', (req, res) => {
+    const userId = req.query.userId; // Access userId from query parameters
+    console.log('-------------req.query', req.query); // Log the query parameters
+
+    const sql = 'SELECT role FROM login WHERE id = ?'; // Use the user ID from the query
+    db.query(sql, [userId], (err, results) => { // Use userId from query
+        if (err) {
+            return res.json({ Error: "Error fetching user role" });
+        }
+        if (results.length > 0) {
+            console.log(results);
+            const role = results[0].role; // Assuming role is in the first row
+            return res.json({ Status: "Success", role });
+        } else {
+            return res.json({ Error: "Role not found" });
+        }
+    });
+});
+
 router.get('/manga', (req, res) => {
-    console.log('Dashboard route hit'); // Log to confirm the route is reached
+    //console.log('Dashboard route hit'); // Log to confirm the route is reached
     const sql = "SELECT * FROM manga"; // Adjust the SQL query as needed
-    console.log('SQL Query:', sql);
+    //console.log('SQL Query:', sql);
     db.query(sql, (err, results) => {
         if (err) {
             console.error('Database query error:', err); // Log the error
@@ -72,12 +94,14 @@ const verifyUser = (req, res, next) => {
             if (err) {
                 return res.json({ Error: "Token verification failed" });
             } else {
-                req.name = decoded.name;
+                req.name = decoded.name; // Store the user's name
+                req.id = decoded.id; // Store the user's ID
                 next();
             }
         });
     }
 };
+
 router.get('/role', (req, res) => {
     const sql = 'SELECT role FROM login WHERE id = ?'; // Adjust the query as needed
     db.query(sql, [req.name], (err, results) => {

@@ -9,21 +9,27 @@ function MangaInfo() {
     const [manga, setManga] = useState(null); // State to hold manga data
     const [loading, setLoading] = useState(true); // Loading state
     const [userId, setUserId] = useState(null); // State to hold the logged-in user's ID
+    const [userRole, setUserRole] = useState(null); // State to hold the logged-in user's role
+    const [newComment, setNewComment] = useState(''); // State to hold the new comment
+
+    useEffect(() => {
+        // Retrieve the logged-in user's ID and role from local storage
+        const storedUserId = localStorage.getItem('userId');
+        const storedUserRole = localStorage.getItem('userRole');
+        
+        if (storedUserId) {
+            setUserId(Number(storedUserId)); // Convert to number if necessary
+        }
+        if (storedUserRole) {
+            setUserRole(storedUserRole); // Set the user role from local storage
+        }
+    }, []); // Run once on component mount
 
     useEffect(() => {
         const fetchMangaInfo = async () => {
             try {
                 const response = await axios.get(`http://localhost:8081/manga/${id}`); // Fetch manga details
-                console.log(response.data);
                 setManga(response.data.data); // Set manga data
-
-                // Extract user ID from the comments (assuming the first comment is from the logged-in user)
-                const userComment = response.data.data.comments.find(comment => comment.user_id); // Adjust this logic as needed
-                console.log
-                if (userComment) {
-                    setUserId(userComment.user_id); // Set the user ID from the comment
-                }
-
                 setLoading(false); // Set loading to false
             } catch (error) {
                 console.error("Error fetching manga info:", error);
@@ -34,8 +40,33 @@ function MangaInfo() {
         fetchMangaInfo();
     }, [id]); // Fetch data when manga_id changes
 
+    const handleCommentChange = (event) => {
+        setNewComment(event.target.value); // Update the new comment state
+    };
+
+    const handleCommentSubmit = async (event) => {
+        event.preventDefault(); // Prevent default form submission
+        if (!newComment) return; // Do not submit if the comment is empty
+
+        const commentData = {
+            user_id: userId, // Assuming you want to associate the comment with the logged-in user
+            manga_id: id, // The manga ID
+            comment: newComment // The comment text
+        };
+
+        try {
+            const response = await axios.post(`http://localhost:8081/comments`, { data: commentData }); // Adjust the port as necessary
+            setManga((prevManga) => ({
+                ...prevManga,
+                comments: [...prevManga.comments, response.data.data] // Add the new comment to the state
+            }));
+            setNewComment(''); // Clear the input field
+        } catch (error) {
+            console.error("Error creating comment:", error);
+        }
+    };
+
     const handleDeleteComment = async (commentId) => {
-        console.log("Deleting comment with ID:", commentId);
         try {
             await axios.delete(`http://localhost:8081/comments/${commentId}`); // Send delete request to backend
             setManga((prevManga) => ({
@@ -74,7 +105,7 @@ function MangaInfo() {
                     manga.comments.map((comment) => (
                         <div key={comment.comment_id} className="comment-card">
                             <p><strong>User {comment.user_id}:</strong> {comment.comment}</p>
-                            {(userId && (userId === comment.user_id || userId.role === 'Admin')) && ( // Check if user is logged in and has permission
+                            {(userId && (userId === comment.user_id || userRole === 'Admin')) && ( // Check if user is logged in and has permission
                                 <button className="delete-button" onClick={() => handleDeleteComment(comment.comment_id)}>
                                     Delete
                                 </button>
@@ -85,6 +116,19 @@ function MangaInfo() {
                     <p>No comments available.</p> // Message if no comments
                 )}
             </div>
+
+            {/* Comment Form */}
+            {userId && ( // Only show the comment form if the user is logged in
+                <form onSubmit={handleCommentSubmit}>
+                    <textarea
+                        value={newComment}
+                        onChange={handleCommentChange}
+                        placeholder="Write your comment here..."
+                        required
+                    />
+                    <button type="submit">Submit Comment</button>
+                </form>
+            )}
         </div>
     );
 }

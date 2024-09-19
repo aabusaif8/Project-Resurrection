@@ -9,19 +9,23 @@ function Login(){
         })
     const navigate = useNavigate()
     axios.defaults.withCredentials = true
-        const handleSubmit = (event) => {
-        event.preventDefault()
+    const handleSubmit = (event) => {
+        event.preventDefault();
         axios.post('http://localhost:8081/login', values)
-        .then(res => {
-            if(res.data.Status === "Success"){
-                navigate('/')
-            } else{
-                alert(res.data.Error)
-            }
-        }
-        )
-        .catch(err => console.log(err))
-    }
+            .then(res => {
+                if (res.data.Status === "Success") {
+                    localStorage.setItem('token', res.data.token);
+                    localStorage.setItem('userId', res.data.userId); // Store user ID
+                    localStorage.setItem('userRole', res.data.role); // Store user role
+                    localStorage.setItem('name', res.data.name); // Store user name
+                    console.log('Login successful:', res.data); // Log the entire response
+                    navigate('/'); // Redirect to home
+                } else {
+                    alert(res.data.Error); // Show error message
+                }
+            })
+            .catch(err => console.log(err));
+    };
 
     return(
         <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>

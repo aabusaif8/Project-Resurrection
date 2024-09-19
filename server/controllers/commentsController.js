@@ -2,8 +2,6 @@
 import db from '../config/db.js'; // Adjust the import based on your database setup
 
 // Controller function to get comments by manga ID
-// controllers/commentsController.js
-
 export const getCommentsByMangaId = (req, res) => {
     const { manga_id } = req.params; // Get mangaId from the request parameters
     console.log('Fetching comments for manga ID:', manga_id);
@@ -39,6 +37,30 @@ export const getAllComments = (req, res) => {
     });
 };
 
+export const createComment = (req, res) => {
+    const commentData = req.body.data; // Extract the comment data from the request body
+
+    // Validate the incoming data
+    if (!commentData || !commentData.user_id || !commentData.manga_id || !commentData.comment) {
+        return res.status(400).json({ Error: "Invalid comment data" });
+    }
+
+    const sql = 'INSERT INTO comments (user_id, manga_id, comment) VALUES (?, ?, ?)';
+    const values = [commentData.user_id, commentData.manga_id, commentData.comment];
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error("Error inserting comment:", err);
+            return res.status(500).json({ Error: "An error occurred while creating the comment" });
+        }
+
+        // Attach the newly created comment ID to the comment object
+        commentData.comment_id = result.insertId; // Get the ID of the newly created comment
+
+        // Respond with the created comment
+        return res.status(201).json({ data: commentData });
+    });
+};
 
 export const deleteComment = (req, res) => {
     const { comment_id } = req.params; // Get comment_id from the request parameters
