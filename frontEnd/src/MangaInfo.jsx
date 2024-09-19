@@ -11,6 +11,8 @@ function MangaInfo() {
     const [userId, setUserId] = useState(null); // State to hold the logged-in user's ID
     const [userRole, setUserRole] = useState(null); // State to hold the logged-in user's role
     const [newComment, setNewComment] = useState(''); // State to hold the new comment
+    const [editingCommentId, setEditingCommentId] = useState(null); // Track which comment is being edited
+    const [editedComment, setEditedComment] = useState(''); // Hold the updated comment text
 
     useEffect(() => {
         // Retrieve the logged-in user's ID and role from local storage
@@ -49,13 +51,13 @@ function MangaInfo() {
         if (!newComment) return; // Do not submit if the comment is empty
 
         const commentData = {
-            user_id: userId, // Assuming you want to associate the comment with the logged-in user
+            user_id: userId, // Associate the comment with the logged-in user
             manga_id: id, // The manga ID
             comment: newComment // The comment text
         };
 
         try {
-            const response = await axios.post(`http://localhost:8081/comments`, { data: commentData }); // Adjust the port as necessary
+            const response = await axios.post(`http://localhost:8081/comments`, { data: commentData });
             setManga((prevManga) => ({
                 ...prevManga,
                 comments: [...prevManga.comments, response.data.data] // Add the new comment to the state
@@ -75,6 +77,36 @@ function MangaInfo() {
             }));
         } catch (error) {
             console.error("Error deleting comment:", error);
+        }
+    };
+
+    const handleEditClick = (commentId, currentComment) => {
+        setEditingCommentId(commentId); // Set the comment being edited
+        setEditedComment(currentComment); // Populate the text area with the current comment
+    };
+
+    const handleEditChange = (event) => {
+        setEditedComment(event.target.value); // Update the edited comment state
+    };
+
+    const handleEditSubmit = async (event, commentId) => {
+        event.preventDefault();
+        const updatedCommentData = {
+            comment: editedComment
+        };
+        
+        try {
+            await axios.put(`http://localhost:8081/comments/${commentId}`, { data: updatedCommentData }); // Update comment
+            setManga((prevManga) => ({
+                ...prevManga,
+                comments: prevManga.comments.map((comment) => 
+                    comment.comment_id === commentId ? { ...comment, comment: editedComment } : comment
+                )
+            }));
+            setEditingCommentId(null); // Reset editing state
+            setEditedComment(''); // Clear edited comment
+        } catch (error) {
+            console.error("Error editing comment:", error);
         }
     };
 
@@ -104,11 +136,28 @@ function MangaInfo() {
                 {manga.comments && manga.comments.length > 0 ? (
                     manga.comments.map((comment) => (
                         <div key={comment.comment_id} className="comment-card">
-                            <p><strong>User {comment.user_id}:</strong> {comment.comment}</p>
-                            {(userId && (userId === comment.user_id || userRole === 'Admin')) && ( // Check if user is logged in and has permission
-                                <button className="delete-button" onClick={() => handleDeleteComment(comment.comment_id)}>
-                                    Delete
-                                </button>
+                            {editingCommentId === comment.comment_id ? (
+                                <div>
+                                    <textarea
+                                        value={editedComment}
+                                        onChange={handleEditChange}
+                                        placeholder="Edit your comment"
+                                    />
+                                    <button onClick={(e) => handleEditSubmit(e, comment.comment_id)}>Save</button>
+                                </div>
+                            ) : (
+                                <p><strong>User {comment.user_id}:</strong> {comment.comment}</p>
+                            )}
+
+                            {(userId && (userId === comment.user_id || userRole === 'Admin')) && (
+                                <div>
+                                    <button onClick={() => handleEditClick(comment.comment_id, comment.comment)}>
+                                        Edit
+                                    </button>
+                                    <button className="delete-button" onClick={() => handleDeleteComment(comment.comment_id)}>
+                                        Delete
+                                    </button>
+                                </div>
                             )}
                         </div>
                     ))
@@ -117,7 +166,6 @@ function MangaInfo() {
                 )}
             </div>
 
-            {/* Comment Form */}
             {userId && ( // Only show the comment form if the user is logged in
                 <form onSubmit={handleCommentSubmit}>
                     <textarea

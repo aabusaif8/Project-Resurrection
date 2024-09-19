@@ -1,0 +1,26 @@
+.manga-list-container {
+    display: flex;
+    justify-content: center; /* Center the entire manga list horizontally */
+  }
+  
+  .manga-list {
+    display: flex;
+    justify-content: space-between; /* Add space between columns */
+    flex-wrap: wrap; /* Ensure items wrap to the next line if the screen is small */
+    max-width: 1200px; /* Set a max width for the list to avoid stretching */
+    width: 100%; /* Ensure it takes full width available */
+  }
+  
+  .manga-item {
+    flex: 0 1 calc(50% - 20px); /* Make each item take 50% width minus spacing */
+    margin-bottom: 20px; /* Add space below each item */
+  }
+  
+  .manga-item img {
+    width: 100%; /* Make the images responsive to the item's width */
+    max-width: 300px; /* Limit the maximum width of the images */
+    height: auto; /* Maintain the aspect ratio of the images */
+    display: block;
+    margin: 0 auto; /* Center the images */
+  }
+  

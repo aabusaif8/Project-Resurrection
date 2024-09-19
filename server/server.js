@@ -7,6 +7,7 @@ import imageRoutes from './routes/imageRoutes.js'; // Import the image routes
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import commentsRoutes from './routes/commentsRoutes.js';
+import searchRoutes from './routes/searchRoutes.js';
 
 const app = express();
 app.use(express.json());
@@ -25,6 +26,7 @@ const __dirname = dirname(__filename);
 
 app.use('/', authRoutes);
 app.use('/manga', mangaRoutes);
+app.use('/search', searchRoutes);
 app.use('/images', imageRoutes); // Add the image routes
 app.use('/comments', commentsRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

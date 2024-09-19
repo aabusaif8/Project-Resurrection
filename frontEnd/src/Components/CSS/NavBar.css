@@ -1,0 +1,37 @@
+/* Centering container for the nav bar */
+.nav-bar-container {
+    display: flex;
+    justify-content: center; /* Centers the navbar within the container */
+    width: 100%; /* Makes sure the container spans the entire width */
+    margin-bottom: 20px; /* Add some space below the nav bar */
+  }
+    
+  /* Center the buttons within the nav bar */
+  .nav-bar {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ccc;
+    width: 100%; /* Ensure nav bar spans full width */
+    max-width: 1200px; /* Optionally, set a max-width to prevent stretching */
+    flex-wrap: nowrap; /* Prevent wrapping, keep everything in one row */
+  }
+    
+  /* Style for smaller buttons in nav bar */
+  .nav-bar button {
+    margin: 0 5px; /* Reduced margin between buttons */
+    padding: 15px 10px; /* Smaller padding for smaller buttons */
+    font-size: 14px; /* Smaller font size */
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+    
+  .nav-bar button:hover {
+    background-color: #0056b3;
+  }
+  

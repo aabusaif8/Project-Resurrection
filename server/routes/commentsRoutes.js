@@ -1,6 +1,6 @@
 // routes/commentsRoutes.js
 import express from 'express';
-import { getAllComments, getCommentsByMangaId, deleteComment, createComment } from '../controllers/commentsController.js'; // Import the controller functions
+import { getAllComments, getCommentsByMangaId, deleteComment, createComment, updateComment } from '../controllers/commentsController.js'; // Import the controller functions
 
 const router = express.Router();
 
@@ -8,9 +8,9 @@ const router = express.Router();
 router.get('/', getAllComments).post('/', createComment);
 
 // Route to get comments by manga ID
-router.get('/:manga_id', getCommentsByMangaId);
+router.get('/:manga_id', getCommentsByMangaId)
 
 // Route to delete a comment by ID
-router.delete('/:comment_id', deleteComment);
+router.delete('/:comment_id', deleteComment).put('/:comment_id', updateComment);
 
-export default router;
+export default router

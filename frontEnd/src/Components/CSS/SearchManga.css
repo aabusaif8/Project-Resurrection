@@ -1,0 +1,104 @@
+body {
+    margin: 0; /* Remove default body margin */
+}
+.search-manga-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: flex-start; /* Align items to the top */
+    min-height: 100vh; /* Ensure it takes at least full height */
+    background-color: #f9f9f9; /* Light background color */
+    padding: 20px; /* Add some padding */
+    position: relative; /* Set position relative for absolute positioning of child elements */
+}
+
+.return-home-button {
+    position: absolute; /* Position the button absolutely */
+    top: 20px; /* Distance from the top */
+    left: 20px; /* Distance from the left */
+    padding: 10px 20px; /* Padding for the button */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #28a745; /* Green background color */
+    color: white; /* Text color */
+    font-size: 1rem; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.return-home-button:hover {
+    background-color: #218838; /* Darker shade on hover */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the form elements */
+}
+
+input[type="text"], button {
+    width: 100%; /* Set width to 20% of the container */
+    max-width: 300px; /* Limit max width */
+    padding: 10px; /* Add padding for better touch */
+    margin-bottom: 10px; /* Space below the input/button */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1rem; /* Font size */
+    text-align: center; /* Center the text inside the input */
+}
+
+button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* Text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.search-results-container {
+    margin-top: 20px; /* Space above the results */
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping of cards */
+    justify-content: center; /* Center the cards */
+}
+
+.manga-card {
+    max-width: 500px; /* Set a fixed width for the cards */
+    height: 800px; /* Set a fixed height for the cards */
+    margin: 10px; /* Space between cards */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center content horizontally */
+    justify-content: space-between; /* Space out content */
+    background-color: #fff; /* White background for cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.manga-image {
+    width: 350px; /* Set a fixed width for the images */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 800px; /* Set a maximum height for the images */
+    object-fit: cover; /* Cover the area while maintaining aspect ratio */
+    border-radius: 5px; /* Optional: rounded corners for images */
+}
+
+.return-home-button {
+    margin-top: 20px; /* Space above the button */
+    padding: 10px 20px; /* Padding for the button */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #28a745; /* Green background color */
+    color: white; /* Text color */
+    font-size: 1rem; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.return-home-button:hover {
+    background-color: #218838; /* Darker shade on hover */
+}

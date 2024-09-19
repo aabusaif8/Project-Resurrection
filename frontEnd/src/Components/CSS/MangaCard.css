@@ -28,4 +28,16 @@
   flex: 1; /* Allow text to take remaining space */
 }
 
-/* Other styles remain unchanged... */
+.manga-card {
+  width: 500px; /* Set a fixed width for the cards */
+  height: 300px; /* Set a fixed height for the cards */
+  margin: 10px; /* Space between cards */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  align-items: center; /* Center content horizontally */
+  justify-content: space-between; /* Space out content */
+  background-color: #fff; /* White background for cards */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}

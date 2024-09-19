@@ -1,4 +1,3 @@
-// controllers/commentsController.js
 import db from '../config/db.js'; // Adjust the import based on your database setup
 
 // Controller function to get comments by manga ID
@@ -24,6 +23,7 @@ export const getCommentsByMangaId = (req, res) => {
     });
 };
 
+// Controller function to get all comments
 export const getAllComments = (req, res) => {
     const sql = 'SELECT * FROM comments'; // Fetch all comments entries
     console.log('SQL Query:', sql);
@@ -37,6 +37,7 @@ export const getAllComments = (req, res) => {
     });
 };
 
+// Controller function to create a new comment
 export const createComment = (req, res) => {
     const commentData = req.body.data; // Extract the comment data from the request body
 
@@ -62,6 +63,34 @@ export const createComment = (req, res) => {
     });
 };
 
+// Controller function to update a comment
+export const updateComment = (req, res) => {
+    const { comment_id } = req.params; // Get comment ID from the URL parameters
+    const { comment } = req.body.data; // Extract the new comment content from the request body
+
+    // Validate incoming data
+    if (!comment) {
+        return res.status(400).json({ error: 'Comment text is required' });
+    }
+
+    const sql = 'UPDATE comments SET comment = ? WHERE comment_id = ?';
+    const values = [comment, comment_id];
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error("Error updating comment:", err);
+            return res.status(500).json({ error: "Failed to update comment" });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Comment not found" });
+        }
+
+        return res.status(200).json({ message: "Comment updated successfully" });
+    });
+};
+
+// Controller function to delete a comment
 export const deleteComment = (req, res) => {
     const { comment_id } = req.params; // Get comment_id from the request parameters
     console.log('Deleting comment ID:', comment_id); // Log the comment ID

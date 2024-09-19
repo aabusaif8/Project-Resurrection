@@ -1,16 +1,8 @@
 import express from 'express';
-import { getMangaById, createManga } from '../controllers/mangaController.js'; // Import your controller functions
-
 const router = express.Router();
+import db from"../config/db.js";
 
-// Route to get manga details by ID
-router.get('/:manga_id', getMangaById);
-
-// Route to create a new manga
-router.post('/', createManga);
-
-// New route for searching manga by title
-router.get('/search', (req, res) => {
+router.get('/', (req, res) => {
     console.log('search route hit'); // Log to confirm the route is hit
     const { query } = req.query; // Get the search query from the request parameters
 
