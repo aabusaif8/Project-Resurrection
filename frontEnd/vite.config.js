@@ -5,7 +5,7 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  input: path.resolve(__dirname, 'src/index.html'), // Specify the path to your index.html
+  input: path.resolve(__dirname, 'frontEnd/index.html'), // Specify the path to your index.html
   output: {
     dir: path.resolve(__dirname, 'dist'),
     format: 'es',
