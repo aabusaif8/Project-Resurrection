@@ -30,6 +30,10 @@ app.use('/search', searchRoutes);
 app.use('/images', imageRoutes); // Add the image routes
 app.use('/comments', commentsRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.listen(8081, () => {
-    console.log("running on port 8081");
+
+// Listen on the PORT provided by the environment or fallback to 8081
+const PORT = process.env.PORT || 8081;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
