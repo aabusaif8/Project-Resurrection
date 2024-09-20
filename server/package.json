@@ -26,6 +26,5 @@
     "swiper": "^11.1.14"
   },
   "devDependencies": {
-    "vite": "^4.0.0"  // Add this as a dev dependency for Vite
-  }
+    "vite": "^4.0.0" 
 }
