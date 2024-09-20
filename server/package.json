@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "build": "vite build",  // Add this to build the frontend
-    "dev": "vite",  // For local frontend development
-    "heroku-postbuild": "npm run build"  // If you're deploying to Heroku
+    "build": "vite build",  
+    "dev": "vite",  
+    "heroku-postbuild": "npm run build"  
   },
   "keywords": [],
   "author": "",
