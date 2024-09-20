@@ -35,4 +35,30 @@ router.get('/search', (req, res) => {
     });
 });
 
+
+// Route to get chapter details
+router.get('/chapter/:chapterId', async (req, res) => {
+    const { chapterId } = req.params;
+    try {
+        const response = await axios.get(`https://api.mangadex.org/chapter/${chapterId}`);
+        const chapterData = response.data.data;
+
+        // Format the response to only include necessary data
+        const formattedData = {
+            id: chapterData.id,
+            title: chapterData.attributes.title,
+            pages: chapterData.attributes.pages.map(page => 
+                `https://uploads.mangadex.org/data/${chapterData.relationships.find(r => r.type === 'manga').id}/${page}`
+            ),
+            volume: chapterData.attributes.volume,
+            chapter: chapterData.attributes.chapter,
+        };
+
+        res.status(200).json({ data: formattedData });
+    } catch (error) {
+        console.error('Error fetching chapter data:', error);
+        res.status(500).json({ message: 'Error fetching chapter data' });
+    }
+});
+
 export default router;
